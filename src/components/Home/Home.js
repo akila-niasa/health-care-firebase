@@ -6,7 +6,7 @@ import doctor from '../../images/doctor.jpg'
 import { Link } from 'react-router-dom';
 const Home = () => {
     const[services,setServices]=useServices()
-    console.log(services);
+    
     return (
         <div className='container'>
             <Banner/>

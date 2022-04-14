@@ -3,18 +3,20 @@ import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import Loading from '../Loading/Loading';
 
 const Register = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [error, setError] = useState('')
+    const [agree,setAgree]=useState(false)
     const [
         createUserWithEmailAndPassword,
         user,
         loading,
         createError
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth,{sendEmailVerification:true});
     const navigate = useNavigate()
 
     const handleEmail = event => {
@@ -41,6 +43,9 @@ const Register = () => {
         console.log(user);
         navigate('/allServices')
     }
+    if(loading){
+        <Loading/>
+    }
     if(createError){
         console.log(createError.message);
     }
@@ -66,9 +71,9 @@ const Register = () => {
                 </Form.Group>
                 <p style={{ color: "red" }}>{error?.message}</p>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
+                    <Form.Check onClick={()=>setAgree(!agree)} type="checkbox" label="Check me out" className={`ps-2 ${agree?'text-primaary':'text-danger'}`} />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button disabled={!agree} variant="primary" type="submit">
                     Submit
                 </Button>
             </Form>
