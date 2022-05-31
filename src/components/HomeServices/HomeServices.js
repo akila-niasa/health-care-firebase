@@ -13,7 +13,7 @@ const HomeServices = ({service}) => {
         <h4 className='text-lg font-semibold'>{doctor}</h4>
        <div className='mx-auto'>
        <button className='mt-2 mb-4 px-4 py-1 border-2 bg-warning '>
-          <Link to={`/services/${id}`}>Details</Link>
+       <Link to={`/service-details/${id}`}>Details</Link>
         </button>
        </div>
       </div>
